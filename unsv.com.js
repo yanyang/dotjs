@@ -231,6 +231,7 @@
 	//read database
 	function init_word() {
 		var obj = $('#articleFulltext');
+		obj.removeAttr('ondblclick');
 		var text = obj.html();
 		unsv_db.transaction(function(tx) {
 				tx.executeSql('SELECT * FROM words WHERE url_md5 = ?', [url_md5], function(tx, res) {
