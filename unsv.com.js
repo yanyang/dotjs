@@ -245,5 +245,30 @@
 				}, function(tx, res) {});
 		});
 	}
+
+	
 	init_word();
 })(window, document);
+
+function auto_play() {
+	var obj = document.querySelector('#MediaPlayerObject');
+	if (obj) {
+		var i = 0;
+		i = Math.abs(obj.PercentLoaded());
+		//console.log(i);
+		if (i < 100) {
+			setTimeout(auto_play, 300);
+			return false;
+		}
+		//console.log(JSON.stringify(obj.getConfig()));
+		if (obj.getConfig().state === 'IDLE' || obj.getConfig().state === 'COMPLETED') {
+			obj.sendEvent('play');
+		}
+		//console.log(obj.getConfig().state);
+		setTimeout(auto_play, 1000);
+	}
+}
+
+$(window).load(function(){
+	setTimeout(auto_play, 1000);
+});
