@@ -248,6 +248,41 @@
 
 	
 	init_word();
+	
+	function key_evt(e){
+		console.log(e.keyCode);
+		switch(e.keyCode) {
+			case 81:
+				//if (e.keyCode === 81) {
+				var obj = document.querySelector('#MediaPlayerObject');
+				if (obj) {
+					//console.log(obj.getConfig().state);
+					if (obj.getConfig().state === 'PLAYING') {
+						obj.sendEvent('play', false);
+					} else if (obj.getConfig().state === 'PAUSED') {
+						obj.sendEvent('play');
+					}
+				}
+				return false;
+			break;
+			/*
+			case 65:
+				var obj = document.querySelector('#MediaPlayerObject');
+
+				console.log(obj.getConfig());
+				if (obj) {
+					var pos = obj.getConfig().position;
+					console.log(pos);
+				}
+			break;
+			
+			case 68:
+			break;
+			*/
+		}
+
+	}
+	$(document).bind('keydown', key_evt);
 })(window, document);
 
 function auto_play() {
