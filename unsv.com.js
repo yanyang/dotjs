@@ -210,6 +210,7 @@
 			gs = document.selection.createRange().text;
 		}
 		str = gs.toString();
+		str = str.trim();
 		if (str !== '') {
 			var text = obj.html();
 			var re = new RegExp (str, "g");
@@ -238,8 +239,12 @@
 					var len = res.rows.length;	
 					for (var i = 0; i < len; i++) {
 						var str = res.rows.item(i).word;
-						var re = new RegExp(str, "g");
-						text = text.replace(re , '<span style="font-size:14px;background:#ffff15;">' + str + '</span>');
+						console.log(str);
+						str = str.trim();
+						if (str != '') {
+							var re = new RegExp(str, "g");
+							text = text.replace(re , '<span style="font-size:14px;background:#ffff15;">' + str + '</span>');
+						}
 					}
 					obj.html(text);
 				}, function(tx, res) {});
@@ -303,7 +308,9 @@ function auto_play() {
 		setTimeout(auto_play, 1000);
 	}
 }
-
+String.prototype.trim = function(){
+	return this.replace(/(^\s*)(\s*$)/g, '');
+}
 $(window).load(function(){
 	setTimeout(auto_play, 1000);
 });
